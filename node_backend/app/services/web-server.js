@@ -14,6 +14,7 @@ function initialize() {
     });
 
     require("../routes/library.routes.js")(app);
+    require("../routes/books.routes.js")(app);
  
     httpServer.listen(webServerConfig.port)
       .on('listening', () => {
