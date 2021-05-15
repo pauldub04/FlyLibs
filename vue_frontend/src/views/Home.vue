@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-main>
+    <v-content>
 
       <v-row>
         <v-col cols="auto" class="mr-auto">
@@ -22,7 +22,7 @@
         class="mb-15"
       />
 
-    </v-main>
+    </v-content>
   </v-container>
 </template>
 
@@ -44,6 +44,7 @@ export default {
       console.log(response.data)
       this.libraries = response.data
     });
+
   }
 }
 </script>
