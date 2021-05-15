@@ -11,11 +11,18 @@ exports.create = (req, res) => {
 }
 
 exports.getAll = (req, res) => {
-    Library.get_libraries((err, data) => {
-      if (err)
-        res.status(500).send({
-          message: err.message || "Error while getting libs"
-        });
+    Library.getLibraries(req.params.libId, (err, data) => {
+      if (err) {
+          if (err.kind === "not_found") {
+            res.status(404).send({
+                message: `Cant find lib with id ${req.params.dealId}.`
+            });
+        } else {
+          res.status(500).send({
+            message: err.message || "Error while getting libs"
+          });
+        }
+      }
       else {
         // res.setHeader('Access-Control-Allow-Origin', '*');
         // res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');

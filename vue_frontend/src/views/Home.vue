@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-content>
+    <v-main>
 
       <v-row>
         <v-col cols="auto" class="mr-auto">
@@ -22,13 +22,13 @@
         class="mb-15"
       />
 
-    </v-content>
+    </v-main>
   </v-container>
 </template>
 
 <script>
 import axios from 'axios';
-import LibrariesList from '@/components/LibrariesList.vue';
+import LibrariesList from '@/components/Libraries/List.vue';
 
 export default {
   name: 'Home',
@@ -39,7 +39,7 @@ export default {
     libraries: [],
   }),
   mounted() {
-    axios.get('/libraries')
+    axios.get('/get_libraries')
     .then(response => {
       console.log(response.data)
       this.libraries = response.data

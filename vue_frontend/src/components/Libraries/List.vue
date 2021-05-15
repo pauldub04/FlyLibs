@@ -5,7 +5,7 @@
       :key="i"
       cols="4"
     >
-      <LibraryCardSmall
+      <CardSmall
         :library="lib"
       />
     </v-col>
@@ -14,7 +14,7 @@
 
 
 <script>
-import LibraryCardSmall from '@/components/LibraryCardSmall.vue';
+import CardSmall from '@/components/Libraries/CardSmall.vue';
 
 export default {
   name: 'LibrariesList',
@@ -22,7 +22,7 @@ export default {
     libraries: Array,
   },
   components: {
-    LibraryCardSmall
+    CardSmall
   },
 }
 </script>

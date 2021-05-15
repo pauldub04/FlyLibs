@@ -27,7 +27,7 @@
 
 <script>
 import axios from 'axios';
-import LibrariesList from '@/components/LibrariesList.vue';
+import LibrariesList from '@/components/Libraries/List.vue';
 
 export default {
   name: 'Home',
@@ -38,7 +38,7 @@ export default {
     libraries: [],
   }),
   mounted() {
-    axios.get('/libraries')
+    axios.get('/get_libraries')
     .then(response => {
       console.log(response.data)
       this.libraries = response.data

@@ -8,6 +8,8 @@ Book.getBooksFromLib = (libId, result) => {
       publication.id_library, genre.name as genre,
 
       author.name as author_name, author.surname as author_surname, author.patronymic as author_patronymic,
+      CONCAT(author.surname, ' ', author.name, ' ', author.patronymic) as author_fullname,
+      CONCAT(author.surname, ' ', author.name) as author_shortname,
 
       publisher.name as publisher, year_publishing, 
       place.cupboard, place.shelf, type
