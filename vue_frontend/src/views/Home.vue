@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-content>
+    <v-main>
 
       <v-row>
         <v-col cols="auto" class="mr-auto">
@@ -22,7 +22,7 @@
         class="mb-15"
       />
 
-    </v-content>
+    </v-main>
   </v-container>
 </template>
 
