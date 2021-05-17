@@ -7,6 +7,7 @@
         :key="item.title"
         :to="item.link"
         link
+        @click="drawer = !drawer"
       >
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
@@ -50,6 +51,8 @@ export default {
       { title: 'Главная', icon: 'mdi-view-dashboard', link: '/' },
       { title: 'Мои библиотеки', icon: 'mdi-library', link: '/my' },
       { title: 'О проекте', icon: 'mdi-forum', link: '/about' },
+      { title: 'Войти', icon: 'mdi-login', link: '/signin' },
+      { title: 'Создать аккаунт', icon: 'mdi-account-circle-outline', link: '/signup' },
     ],
   }),
 };

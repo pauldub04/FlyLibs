@@ -7,12 +7,12 @@
     <v-img
       v-if="book.image"
       :src="book.image"
-      height="50px"
+      height="200px"
     ></v-img>
     <v-img
       v-else
       src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-      height="50px"
+      height="200px"
     ></v-img>
 
     <v-card-title>

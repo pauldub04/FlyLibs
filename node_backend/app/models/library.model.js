@@ -19,7 +19,7 @@ Library.getLibraries = (libId, result) => {
       throw err;
     }
 
-    console.log(result_sql)
+    // console.log(result_sql)
 
     if (libId != null)
       result(null, result_sql[0]);

@@ -28,15 +28,20 @@
 
       <v-divider class="mb-10"></v-divider> 
 
-      <Table
-        v-if="toggle_view % 2 == 0"
-        :books="books"
-      />
-
-      <List
-        v-else
-        :books="books"
-      />
+      <v-row 
+        class="mb-15"
+      >
+        <v-col>
+          <Table
+            v-if="toggle_view % 2 == 0"
+            :books="books"
+          />
+          <List
+            v-else
+            :books="books"
+          />
+        </v-col>
+      </v-row>
 
     </v-main>
   </v-container>
@@ -59,17 +64,25 @@ export default {
     toggle_view: 0,
   }),
   mounted() {
+    this.toggle_view = JSON.parse(localStorage.getItem("library_view_type")) || 0;
+
     axios.get(`/get_libraries/${this.$route.params.ind}`)
     .then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       this.lib = response.data
     });
 
     axios.get(`/get_books/${this.$route.params.ind}`)
     .then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       this.books = response.data
     });
   },
+  watch: {
+    toggle_view() {
+      console.log(this.toggle_view)
+      localStorage.setItem("library_view_type", this.toggle_view);
+    },
+  }
 }
 </script>
