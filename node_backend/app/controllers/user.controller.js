@@ -107,6 +107,12 @@ exports.getUser = (req, res) => {
   });
 };
 
+exports.testAuth = (req, res) => {
+  const { role } = req.user;
+
+  res.send(role);
+}
+
 exports.testAdmin = (req, res) => {
   const { role } = req.user;
   

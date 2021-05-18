@@ -41,12 +41,20 @@
           </v-form>
         </v-col>
       </v-row>
+      <v-btn
+        class="mt-10"
+        @click="checkAuth"
+      >
+        check
+      </v-btn>
 
     </v-main>
   </v-container>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data: () => ({
     username: null,
@@ -70,8 +78,13 @@ export default {
         username: this.username,
         password: this.password,
       })
-
     },
+    checkAuth() {
+      axios.get('/users/testauth')
+      .then(response => {
+        console.log(response.data)
+      });
+    }
   }
 }
 </script>

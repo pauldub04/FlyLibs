@@ -19,6 +19,8 @@ export default new Vuex.Store({
           console.log(response.data)
 
           ctx.dispatch('setAuthHeader', response.data.accessToken);
+          sessionStorage.setItem('authToken', response.data.accessToken); 
+
           // this.$router.push('/')
         })
         .catch((error) => {
@@ -28,8 +30,7 @@ export default new Vuex.Store({
         })
     },
     setAuthHeader(ctx, token) {
-      // axios.setToken(token, 'Bearer');
-      axios.setHeader('Authorization', `Bearer ${token}`)
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     },
   
   },
