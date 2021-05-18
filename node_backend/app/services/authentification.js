@@ -1,33 +1,48 @@
 const jwt = require('jsonwebtoken');
+const sql = require("../models/db");
+const bcrypt = require('bcryptjs');
 
-const users = [
-  {
-    username: 'john',
-    password: 'password123admin',
-    role: 'admin'
-  },
-  {
-    username: 'anna',
-    password: 'password123member',
-    role: 'member'
-  }
-];
+const isValidPassword = function(user, password) {
+  return bcrypt.compareSync(password.toString(), user.password.toString());
+}
+  // const p5 = bcrypt.hashSync("123", bcrypt.genSaltSync(10), null);
+
+const generateToken = function(user) {
+  return jwt.sign({ username: user.username,  role: user.role }, process.env.TOKEN_SECRET);
+  // const accessToken = jwt.sign({ username: user.username,  role: user.role }, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
+}
 
 module.exports = app => {
   app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    const user = users.find(u => { return u.username === username && u.password === password });
+    let user = null;
 
-    if (user) {
-      // const accessToken = jwt.sign({ username: user.username,  role: user.role }, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
-      const accessToken = jwt.sign({ username: user.username,  role: user.role }, process.env.TOKEN_SECRET);
+    let req_sql = `
+      SELECT *
+      FROM user
+      WHERE username like "${username}"
+    `;
 
-      res.json({
-        accessToken
-      });
-    } else {
-      res.send('Username or password incorrect');
-    }
+    sql.query(req_sql, function (err, result_sql, fields) {
+      if (err) {
+        console.log("error: ", err);
+        throw err;
+      }
+
+      if (result_sql.length != 0)
+        user = result_sql[0];
+
+      if (user && isValidPassword(user, password)) {
+        const accessToken = generateToken(user);
+  
+        res.json({
+          accessToken
+        });
+      } else {
+        res.send('Username or password are incorrect');
+      }
+    });
+    
   });
 };
 

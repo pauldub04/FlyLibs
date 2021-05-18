@@ -15,7 +15,7 @@ exports.getAll = (req, res) => {
       if (err) {
           if (err.kind === "not_found") {
             res.status(404).send({
-                message: `Cant find lib with id ${req.params.dealId}.`
+                message: `Cant find lib with id ${req.params.libId}`
             });
         } else {
           res.status(500).send({
