@@ -4,41 +4,43 @@
 
       <h1>Вход в аккаунт</h1>
 
-      <v-form
-        class="mt-10"
-        ref="form"
-        v-model="valid"
-        lazy-validation
-      >
-        <v-text-field
-          v-model="firstname"
-          :rules="nameRules"
-          :counter="10"
-          label="First name"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="email"
-          :rules="emailRules"
-          label="E-mail"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="email"
-          :rules="emailRules"
-          label="E-mail"
-          required
-        ></v-text-field>
+      <v-row>
+        <v-col cols="6">
+          <v-form
+            class="mt-10"
+            ref="form"
+            v-model="valid"
+          >
+            <v-text-field
+              v-model="username"
+              :rules="rules.required"
+              :counter="10"
+              label="Имя пользователя"
+              required
+            ></v-text-field>
 
-        <v-btn
-          :disabled="!valid"
-          color="success"
-          class="mr-4"
-          @click="validate"
-        >
-          Validate
-        </v-btn>
-      </v-form>
+            <v-text-field
+              v-model="password"
+              :rules="rules.required"
+              :type="showPassword ? 'text' : 'password'"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="showPassword = !showPassword"
+              label="Пароль"
+              required
+              @keyup.enter="signIn"
+            ></v-text-field>
+
+            <v-btn
+              :disabled="!valid"
+              color="success"
+              class="mt-10"
+              @click="signIn"
+            >
+              Войти
+            </v-btn>
+          </v-form>
+        </v-col>
+      </v-row>
 
     </v-main>
   </v-container>
@@ -46,7 +48,31 @@
 
 <script>
 export default {
+  data: () => ({
+    username: null,
+    password: null,
+    valid: false,
 
+    showPassword: false,
+    rules: {
+      required: [(value) => !!value || 'Поле должно быть заполнено'],
+    },
+
+  }),
+  methods: {
+    signIn () {
+      // if (this.$refs.form.validate()) {
+      //   console.log('kek')
+      // }
+      // this.$refs.form.reset()
+
+      this.$store.dispatch('signIn', {
+        username: this.username,
+        password: this.password,
+      })
+
+    },
+  }
 }
 </script>
 

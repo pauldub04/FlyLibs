@@ -48,7 +48,7 @@ exports.login = (req, res) => {
         accessToken
       });
     } else {
-      res.send('Username or password are incorrect');
+      res.status(401).send('Username or password are incorrect');
     }
   });
 }
