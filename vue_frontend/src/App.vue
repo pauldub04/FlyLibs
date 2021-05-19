@@ -47,13 +47,25 @@ export default {
   },
   data: () => ({
     drawer: false,
-    drawer_list: [
-      { title: 'Главная', icon: 'mdi-view-dashboard', link: '/' },
-      { title: 'Мои библиотеки', icon: 'mdi-library', link: '/my' },
-      { title: 'О проекте', icon: 'mdi-forum', link: '/about' },
-      { title: 'Войти', icon: 'mdi-login', link: '/signin' },
-      { title: 'Создать аккаунт', icon: 'mdi-account-circle-outline', link: '/signup' },
-    ],
   }),
+  computed: {
+    drawer_list() {
+      let isLogged = (localStorage.getItem('authToken') !== null);
+      let list = [
+        { title: 'Главная', icon: 'mdi-view-dashboard', link: '/' },
+        { title: 'Мои библиотеки', icon: 'mdi-library', link: '/my' },
+        { title: 'О проекте', icon: 'mdi-forum', link: '/about' },
+      ]
+
+      if (isLogged)
+        list.push({ title: 'Выйти', icon: 'mdi-logout', link: '/logout' })
+      else {
+        list.push({ title: 'Войти', icon: 'mdi-login', link: '/signin' })
+        list.push({ title: 'Создать аккаунт', icon: 'mdi-account-circle-outline', link: '/signup' })
+      }
+
+      return list
+    }
+  }
 };
 </script>

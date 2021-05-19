@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import axios from 'axios';
+import router from '../router/index';
 
 Vue.use(Vuex)
 
@@ -21,7 +22,7 @@ export default new Vuex.Store({
           localStorage.setItem('authToken', response.data.accessToken); 
 
           console.log('signed in')
-          // this.$router.push('/')
+          router.push('/')
         })
         .catch((error) => {
           console.log(error)
@@ -48,6 +49,7 @@ export default new Vuex.Store({
       axios.defaults.headers.common['Authorization'] = '';
       localStorage.removeItem('authToken');
       console.log('logged out')
+      router.push('/')
     },
   
   },

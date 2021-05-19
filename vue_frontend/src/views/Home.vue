@@ -39,6 +39,7 @@ export default {
     libraries: [],
   }),
   mounted() {
+    console.log(localStorage.getItem('authToken'))
     axios.get('/libraries/get_libraries')
     .then(response => {
       console.log(response.data)
