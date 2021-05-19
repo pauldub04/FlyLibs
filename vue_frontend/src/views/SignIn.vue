@@ -47,6 +47,12 @@
       >
         check
       </v-btn>
+      <v-btn
+        class="mt-10 ml-5"
+        @click="logOut"
+      >
+        logout
+      </v-btn>
 
     </v-main>
   </v-container>
@@ -83,7 +89,13 @@ export default {
       axios.get('/users/testauth')
       .then(response => {
         console.log(response.data)
-      });
+      })
+      .catch((error) => {
+        console.log(error.response.data)
+      })
+    },
+    logOut() {
+      this.$store.dispatch('logOut')
     }
   }
 }

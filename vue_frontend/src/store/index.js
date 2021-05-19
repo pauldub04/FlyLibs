@@ -15,12 +15,12 @@ export default new Vuex.Store({
       return axios
         .post('/auth/login/', credentials)
         .then(async (response) => {
+          // console.log(response.data)
+
+          axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
+          localStorage.setItem('authToken', response.data.accessToken); 
+
           console.log('signed in')
-          console.log(response.data)
-
-          ctx.dispatch('setAuthHeader', response.data.accessToken);
-          sessionStorage.setItem('authToken', response.data.accessToken); 
-
           // this.$router.push('/')
         })
         .catch((error) => {
@@ -29,8 +29,11 @@ export default new Vuex.Store({
           alert(error.response.data)
         })
     },
-    setAuthHeader(ctx, token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+    logOut() {
+      axios.defaults.headers.common['Authorization'] = '';
+      localStorage.removeItem('authToken');
+      console.log('logged out')
     },
   
   },
