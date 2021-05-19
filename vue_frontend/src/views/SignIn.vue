@@ -13,15 +13,15 @@
           >
             <v-text-field
               v-model="username"
-              :rules="rules.required"
+              :rules="[v => !!v || 'Введите логин']"
               :counter="10"
-              label="Имя пользователя"
+              label="Логин"
               required
             ></v-text-field>
 
             <v-text-field
               v-model="password"
-              :rules="rules.required"
+              :rules="[v => !!v || 'Введите пароль']"
               :type="showPassword ? 'text' : 'password'"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="showPassword = !showPassword"

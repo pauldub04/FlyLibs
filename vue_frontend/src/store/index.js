@@ -30,6 +30,20 @@ export default new Vuex.Store({
         })
     },
 
+    async signUp(ctx, credentials) {
+      return axios
+        .post('/auth/create/', credentials)
+        .then(async (response) => {
+          console.log(response.data)
+          console.log('signed up')
+          alert('Ваш аккаунт был успешно создан')
+          ctx.dispatch('signIn', credentials)
+        })
+        .catch((error) => {
+          console.log(error.response.data)
+        })
+    },  
+
     logOut() {
       axios.defaults.headers.common['Authorization'] = '';
       localStorage.removeItem('authToken');
