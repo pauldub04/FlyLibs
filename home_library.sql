@@ -1,43 +1,42 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5deb2
--- https://www.phpmyadmin.net/
+-- version 3.5.1
+-- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: Apr 25, 2021 at 05:58 PM
--- Server version: 8.0.23-0ubuntu0.20.04.1
--- PHP Version: 7.4.3
+-- Хост: 127.0.0.1
+-- Время создания: Май 21 2021 г., 12:22
+-- Версия сервера: 5.5.25
+-- Версия PHP: 5.3.13
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `home_library`
+-- База данных: `home_library`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `author`
+-- Структура таблицы `author`
 --
 
-CREATE TABLE `author` (
-  `id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `author` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `surname` varchar(100) NOT NULL,
   `patronymic` varchar(100) DEFAULT NULL,
-  `bio` varchar(1000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `bio` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `author`
+-- Дамп данных таблицы `author`
 --
 
 INSERT INTO `author` (`id`, `name`, `surname`, `patronymic`, `bio`) VALUES
@@ -47,20 +46,21 @@ INSERT INTO `author` (`id`, `name`, `surname`, `patronymic`, `bio`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `book`
+-- Структура таблицы `book`
 --
 
-CREATE TABLE `book` (
-  `id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `book` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(500) NOT NULL,
-  `id_author` int NOT NULL,
-  `id_genre` int NOT NULL,
+  `id_author` int(11) NOT NULL,
+  `id_genre` int(11) NOT NULL,
   `description` varchar(1000) DEFAULT NULL,
-  `image` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `image` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `book`
+-- Дамп данных таблицы `book`
 --
 
 INSERT INTO `book` (`id`, `name`, `id_author`, `id_genre`, `description`, `image`) VALUES
@@ -70,17 +70,18 @@ INSERT INTO `book` (`id`, `name`, `id_author`, `id_genre`, `description`, `image
 -- --------------------------------------------------------
 
 --
--- Table structure for table `genre`
+-- Структура таблицы `genre`
 --
 
-CREATE TABLE `genre` (
-  `id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `genre` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `description` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `description` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
--- Dumping data for table `genre`
+-- Дамп данных таблицы `genre`
 --
 
 INSERT INTO `genre` (`id`, `name`, `description`) VALUES
@@ -102,19 +103,20 @@ INSERT INTO `genre` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `library`
+-- Структура таблицы `library`
 --
 
-CREATE TABLE `library` (
-  `id` int NOT NULL,
-  `id_user` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `library` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` varchar(1000) DEFAULT NULL,
-  `image` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `image` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `library`
+-- Дамп данных таблицы `library`
 --
 
 INSERT INTO `library` (`id`, `id_user`, `name`, `description`, `image`) VALUES
@@ -126,21 +128,22 @@ INSERT INTO `library` (`id`, `id_user`, `name`, `description`, `image`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order`
+-- Структура таблицы `order`
 --
 
-CREATE TABLE `order` (
-  `id` int NOT NULL,
-  `id_user` int NOT NULL,
-  `id_publication` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `id_publication` int(11) NOT NULL,
   `date_start` date NOT NULL,
   `date_end` date NOT NULL,
   `is_start` tinyint(1) NOT NULL,
-  `is_end` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `is_end` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `order`
+-- Дамп данных таблицы `order`
 --
 
 INSERT INTO `order` (`id`, `id_user`, `id_publication`, `date_start`, `date_end`, `is_start`, `is_end`) VALUES
@@ -149,19 +152,20 @@ INSERT INTO `order` (`id`, `id_user`, `id_publication`, `date_start`, `date_end`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `place`
+-- Структура таблицы `place`
 --
 
-CREATE TABLE `place` (
-  `id` int NOT NULL,
-  `id_library` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `place` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_library` int(11) NOT NULL,
   `cupboard` varchar(100) DEFAULT NULL,
-  `shelf` int DEFAULT NULL,
-  `pc` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `shelf` int(11) DEFAULT NULL,
+  `pc` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `place`
+-- Дамп данных таблицы `place`
 --
 
 INSERT INTO `place` (`id`, `id_library`, `cupboard`, `shelf`, `pc`) VALUES
@@ -171,23 +175,24 @@ INSERT INTO `place` (`id`, `id_library`, `cupboard`, `shelf`, `pc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `publication`
+-- Структура таблицы `publication`
 --
 
-CREATE TABLE `publication` (
-  `id` int NOT NULL,
-  `id_book` int NOT NULL,
-  `id_library` int NOT NULL,
-  `id_publisher` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `publication` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_book` int(11) NOT NULL,
+  `id_library` int(11) NOT NULL,
+  `id_publisher` int(11) NOT NULL,
   `image` varchar(100) DEFAULT NULL,
   `description` varchar(1000) DEFAULT NULL,
-  `year_publishing` int NOT NULL,
-  `id_place` int NOT NULL,
-  `type` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `year_publishing` int(11) NOT NULL,
+  `id_place` int(11) NOT NULL,
+  `type` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `publication`
+-- Дамп данных таблицы `publication`
 --
 
 INSERT INTO `publication` (`id`, `id_book`, `id_library`, `id_publisher`, `image`, `description`, `year_publishing`, `id_place`, `type`) VALUES
@@ -197,166 +202,54 @@ INSERT INTO `publication` (`id`, `id_book`, `id_library`, `id_publisher`, `image
 -- --------------------------------------------------------
 
 --
--- Table structure for table `publisher`
+-- Структура таблицы `publisher`
 --
 
-CREATE TABLE `publisher` (
-  `id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `publisher` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `adress` varchar(1000) DEFAULT NULL,
-  `description` varchar(1000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `description` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `publisher`
+-- Дамп данных таблицы `publisher`
 --
 
 INSERT INTO `publisher` (`id`, `name`, `adress`, `description`) VALUES
 (1, 'Эксмо', 'Издательство «ЭКСМО»\r\n123308, г. Москва, ул. Зорге, д.1, стр.1.', 'Издательство «Эксмо» — универсальное издательство № 1 в России, является одним из лидеров книжного рынка Европы.'),
-(2, 'АСТ', NULL, 'Издательская группа «АСТ» — одно из двух крупнейших издательств России. Основано в 1990 году как ТКО \"АСТ\". Является универсальным издательством: выпускает художественную литературу, нон-фикшн, популярные пособия.');
+(2, 'АСТ', NULL, 'Издательская группа «АСТ» — одно из двух крупнейших издательств России. Основано в 1990 году как ТКО "АСТ". Является универсальным издательством: выпускает художественную литературу, нон-фикшн, популярные пособия.');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Структура таблицы `user`
 --
 
-CREATE TABLE `user` (
-  `id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `surname` varchar(100) DEFAULT NULL,
-  `login` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `age` int DEFAULT NULL,
-  `type` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `username` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `age` int(11) DEFAULT NULL,
+  `role` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 --
--- Dumping data for table `user`
+-- Дамп данных таблицы `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `surname`, `login`, `password`, `age`, `type`) VALUES
-(1, 'test', 'test', 'test', 'test', 20, 'user'),
-(2, 'test2', 'test2', 'test2', 'test2', 20, 'user'),
-(3, 'Иван', 'Иванов', 'ivankek', '1234', 25, 'user'),
-(4, 'User1', 'User1', 'User1', 'User1User1', NULL, 'user');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `author`
---
-ALTER TABLE `author`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `book`
---
-ALTER TABLE `book`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `genre`
---
-ALTER TABLE `genre`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `library`
---
-ALTER TABLE `library`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `order`
---
-ALTER TABLE `order`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `place`
---
-ALTER TABLE `place`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `publication`
---
-ALTER TABLE `publication`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `publisher`
---
-ALTER TABLE `publisher`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `author`
---
-ALTER TABLE `author`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `book`
---
-ALTER TABLE `book`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `genre`
---
-ALTER TABLE `genre`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT for table `library`
---
-ALTER TABLE `library`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `order`
---
-ALTER TABLE `order`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `place`
---
-ALTER TABLE `place`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `publication`
---
-ALTER TABLE `publication`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `publisher`
---
-ALTER TABLE `publisher`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-COMMIT;
+INSERT INTO `user` (`id`, `name`, `surname`, `username`, `email`, `password`, `age`, `role`) VALUES
+(1, 'test', 'test', 'test', '', 'test', 20, 'user'),
+(2, 'test2', 'test2', 'test2', '', 'test2', 20, 'user'),
+(3, 'Иван', 'Иванов', 'ivankek', '', '1234', 25, 'user'),
+(4, 'User1', 'User1', 'User1', '', 'User1User1', NULL, 'user'),
+(22, 'dpoksdf', 'dpokfs', 'qweqwe234asd', 'pdofk@klds.c', '$2a$10$Q7GSAwZCgd8W8.2bWZcXxerL2dUrEPbaPa7.ugdsK6Zn/HbF8Fi72', NULL, 'admin');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
