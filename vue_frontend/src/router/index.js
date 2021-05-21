@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import store from '../store/index'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -58,9 +60,9 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.toMain && localStorage.getItem('authToken') !== null)
+  if (to.meta.toMain && store.getters.getToken !== null)
     next('/')
-  else if (to.meta.toLog && localStorage.getItem('authToken') == null)
+  else if (to.meta.toLog && store.getters.getToken == null)
     next('/signin')
   else
     next()

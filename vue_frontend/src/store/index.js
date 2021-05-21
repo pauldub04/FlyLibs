@@ -4,12 +4,20 @@ import Vuex from 'vuex'
 import axios from 'axios';
 import router from '../router/index';
 
+import createPersistedState from "vuex-persistedstate";
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
+    user: {},
+    token: null,
   },
   mutations: {
+    setToken(state, token) {
+      state.token = token;
+    }
   },
   actions: {
     async signIn(ctx, credentials) {
@@ -19,7 +27,7 @@ export default new Vuex.Store({
           // console.log(response.data)
 
           axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
-          localStorage.setItem('authToken', response.data.accessToken); 
+          ctx.commit('setToken', response.data.accessToken);
 
           console.log('signed in')
           router.push('/')
@@ -45,13 +53,19 @@ export default new Vuex.Store({
         })
     },  
 
-    logOut() {
+    logOut(ctx) {
       axios.defaults.headers.common['Authorization'] = '';
-      localStorage.removeItem('authToken');
+      ctx.commit('setToken', null);
+
       console.log('logged out')
       router.push('/')
     },
   
+  },
+  getters: {
+    getToken(state) {
+      return state.token;
+    }
   },
   modules: {
   }

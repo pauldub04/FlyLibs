@@ -41,7 +41,7 @@
           </v-form>
         </v-col>
       </v-row>
-      <v-btn
+      <!-- <v-btn
         class="mt-10"
         @click="checkAuth"
       >
@@ -52,7 +52,7 @@
         @click="logOut"
       >
         logout
-      </v-btn>
+      </v-btn> -->
 
     </v-main>
   </v-container>
