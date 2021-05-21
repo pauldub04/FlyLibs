@@ -30,7 +30,7 @@ import axios from 'axios';
 import LibrariesList from '@/components/Libraries/List.vue';
 
 export default {
-  name: 'Home',
+  name: 'My',
   components: {
     LibrariesList
   },
@@ -42,14 +42,7 @@ export default {
     .then(response => {
       console.log(response.data)
       this.libraries = response.data
-
-
-      console.log(this.libraries)
-
-      let user_id = 3;
-      this.libraries = this.libraries.filter(lib => lib.creator_id == user_id);
-
-      console.log(this.libraries)
+      this.libraries = this.libraries.filter(lib => lib.creator_id == this.$store.getters.getUser.id);
     });
 
   }

@@ -62,6 +62,7 @@
 import axios from 'axios';
 
 export default {
+  name: 'SignIn',
   data: () => ({
     username: null,
     password: null,

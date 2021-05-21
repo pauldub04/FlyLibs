@@ -70,40 +70,41 @@
 
 <script>
 export default {
-    data: () => ({
-      valid: false,
-      username: '',
-      email: '',
-      name: '',
-      surname: '',
-      password: '',
-      showPassword: false,
-      emailRules: [
-        v => !!v || 'Введите почту',
-        v => /.+@.+\..+/.test(v) || 'Введите правильную почту',
-      ],
-      passwordRules: [
-        v => !!v || 'Введите пароль',
-        v => (v && v.length >= 8) || 'Пароль должен содержать хотя бы 8 символов',
-      ]
-    }),
-    methods: {
-      signup () {
-        // if (this.$refs.form.validate()) {
-        //   console.log('kek')
-        // }
-        // this.$refs.form.reset()
+  name: 'SignUp',
+  data: () => ({
+    valid: false,
+    username: '',
+    email: '',
+    name: '',
+    surname: '',
+    password: '',
+    showPassword: false,
+    emailRules: [
+      v => !!v || 'Введите почту',
+      v => /.+@.+\..+/.test(v) || 'Введите правильную почту',
+    ],
+    passwordRules: [
+      v => !!v || 'Введите пароль',
+      v => (v && v.length >= 8) || 'Пароль должен содержать хотя бы 8 символов',
+    ]
+  }),
+  methods: {
+    signup () {
+      // if (this.$refs.form.validate()) {
+      //   console.log('kek')
+      // }
+      // this.$refs.form.reset()
 
-        this.$store.dispatch('signUp', {
-          username: this.username,
-          email: this.email,
-          name: this.name,
-          surname: this.surname,
-          password: this.password,
-        })
+      this.$store.dispatch('signUp', {
+        username: this.username,
+        email: this.email,
+        name: this.name,
+        surname: this.surname,
+        password: this.password,
+      })
 
-      },
-    }
+    },
+  }
 }
 </script>
 

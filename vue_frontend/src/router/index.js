@@ -50,6 +50,11 @@ const routes = [
     name: 'Library',
     component: () => import(/* webpackChunkName: "library" */ '../views/Library.vue')
   },
+  {
+    path: '/user/:id',
+    name: 'User',
+    component: () => import(/* webpackChunkName: "user" */ '../views/User.vue')
+  },
 ]
 
 const router = new VueRouter({
