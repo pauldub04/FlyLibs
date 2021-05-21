@@ -88,8 +88,8 @@ exports.create = (req, res) => {
 
 
 exports.getUser = (req, res) => {
-  const userId = req.body.username || req.params.username
-  User.getUserByUsername(userId, (err, data) => {
+  const userId = req.body.id || req.params.id
+  User.getUserById(userId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -102,8 +102,34 @@ exports.getUser = (req, res) => {
       }
     }
     else {
-      // res.setHeader('Access-Control-Allow-Origin', '*');
-      // res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
+      res.send(data);
+    }
+  });
+};
+
+exports.updateUser = (req, res) => {
+  console.log(req.body)
+  let changeUser = {
+    id: req.body.id.toString(),
+    username: req.body.username.toString(),
+    email: req.body.email.toString(),
+    name: req.body.name.toString(),
+    surname: req.body.surname.toString(),
+  };
+
+  User.update(changeUser, (err, data) => {
+    if (err) {
+      if (err.code == 'ER_DUP_ENTRY')
+        res.status(500).send({
+          message: 'Such username is already taken'
+        });
+      else
+        res.status(500).send({
+          message:
+            err.message || "Произошла ошибка во время выполнения кода"
+        });
+    }
+    else {
       res.send(data);
     }
   });

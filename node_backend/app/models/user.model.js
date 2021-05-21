@@ -31,12 +31,55 @@ User.create = (newUser, result) => {
   });
 };
 
+User.update = (changeUser, result) => {
+  const req = `
+    UPDATE user
+    SET username = "${changeUser.username}", email = "${changeUser.email}",
+      name = "${changeUser.name}", surname = "${changeUser.surname}"
+    WHERE id = "${changeUser.id}"
+  `;
+
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    console.log(result_sql)
+    result(null, result_sql);
+  });
+};
+
 User.getUserByUsername = (username, result) => {
   let req = `
     SELECT id, username, email, name, surname, role
     FROM user
 
     WHERE username like "${username}"
+  `;
+
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
+
+    console.log('in model', result_sql)
+    if (result_sql.length == 0)
+      result({'kind': 'not_found'}, null);
+    else
+      result(null, result_sql[0]);
+  });
+}
+
+User.getUserById = (id, result) => {
+  let req = `
+    SELECT id, username, email, name, surname, role
+    FROM user
+
+    WHERE id = "${id}"
   `;
 
   sql.query(req, function (err, result_sql, fields) {
