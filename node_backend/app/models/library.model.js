@@ -19,9 +19,9 @@ Library.getLibraries = (libId, result) => {
       throw err;
     }
 
-    // console.log(result_sql)
-
-    if (libId != null)
+    if (result_sql.length == 0)
+      result({'kind': 'not_found'}, null);
+    else if (libId != null)
       result(null, result_sql[0]);
     else
       result(null, result_sql);

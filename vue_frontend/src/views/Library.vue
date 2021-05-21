@@ -66,13 +66,13 @@ export default {
   mounted() {
     this.toggle_view = JSON.parse(localStorage.getItem("library_view_type")) || 0;
 
-    axios.get(`/get_libraries/${this.$route.params.ind}`)
+    axios.get(`/libraries/get_libraries/${this.$route.params.ind}`)
     .then(response => {
       // console.log(response.data)
       this.lib = response.data
     });
 
-    axios.get(`/get_books/${this.$route.params.ind}`)
+    axios.get(`/books/get_books/lib/${this.$route.params.ind}`)
     .then(response => {
       // console.log(response.data)
       this.books = response.data

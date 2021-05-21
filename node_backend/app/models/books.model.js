@@ -43,9 +43,10 @@ Book.getBooksFromLib = (libId, result) => {
         throw err;
       }
   
-      // console.log(result_sql)
-  
-      result(null, result_sql);
+      if (result_sql.length == 0)
+        result({'kind': 'not_found'}, null);
+      else
+        result(null, result_sql);
     });
   }
     

@@ -2,19 +2,28 @@ const http = require('http');
 const express = require('express');
 const webServerConfig = require('../config/web-server.js');
 
+const auth = require('../routes/auth.routes');
+const dotenv = require('dotenv');
+
 let httpServer;
  
 function initialize() {
   return new Promise((resolve, reject) => {
     const app = express();
+    app.use(express.json());
     httpServer = http.createServer(app);
     
+    dotenv.config();
+    //require('crypto').randomBytes(64).toString('hex')
+
     app.get('/', (req, res) => {
       res.send({ message: 'on /' });
     });
-
+  
+    auth(app);
     require("../routes/library.routes.js")(app);
     require("../routes/books.routes.js")(app);
+    require("../routes/user.routes.js")(app);
  
     httpServer.listen(webServerConfig.port)
       .on('listening', () => {
