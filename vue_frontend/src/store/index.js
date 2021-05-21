@@ -17,17 +17,21 @@ export default new Vuex.Store({
   mutations: {
     setToken(state, token) {
       state.token = token;
-    }
+    },
+    setUser(state, user) {
+      state.user = user;
+    },
   },
   actions: {
     async signIn(ctx, credentials) {
       return axios
         .post('/auth/login/', credentials)
         .then(async (response) => {
-          // console.log(response.data)
+          console.log(response.data)
 
           axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
           ctx.commit('setToken', response.data.accessToken);
+          ctx.commit('setUser', response.data.user);
 
           console.log('signed in')
           router.push('/')
@@ -56,6 +60,7 @@ export default new Vuex.Store({
     logOut(ctx) {
       axios.defaults.headers.common['Authorization'] = '';
       ctx.commit('setToken', null);
+      ctx.commit('setUser', {});
 
       console.log('logged out')
       router.push('/')
@@ -65,6 +70,9 @@ export default new Vuex.Store({
   getters: {
     getToken(state) {
       return state.token;
+    },
+    getUser(state) {
+      return state.user;
     }
   },
   modules: {

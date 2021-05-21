@@ -39,7 +39,7 @@ export default {
     libraries: [],
   }),
   mounted() {
-    console.log('from get', this.$store.getters.getToken)
+    // console.log('from get', this.$store.getters.getToken)
 
     axios.get('/libraries/get_libraries')
     .then(response => {

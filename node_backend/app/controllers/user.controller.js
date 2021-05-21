@@ -43,9 +43,11 @@ exports.login = (req, res) => {
 
     if (user && isValidPassword(user, password)) {
       const accessToken = generateToken(user);
+      delete user.password;
 
       res.json({
-        accessToken
+        accessToken,
+        user
       });
     } else {
       res.status(401).send('Username or password are incorrect');

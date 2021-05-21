@@ -26,6 +26,17 @@
       <v-icon>mdi-book</v-icon>
     </v-app-bar-nav-icon>
     <v-toolbar-title>HomeLibrary</v-toolbar-title>
+
+    <v-spacer/>
+    <div v-if="token">
+      <v-list-item link :to="`/user/${user.id}`">
+        <v-list-item-content>
+          <v-list-item-title>
+            {{ user.username }}
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </div>
   </v-app-bar>
 
   <v-main>
@@ -50,7 +61,7 @@ export default {
   }),
   computed: {
     drawer_list() {
-      let isLogged = (this.$store.getters.getToken !== null);
+      let isLogged = (this.token !== null);
       let list = [
         { title: 'Главная', icon: 'mdi-view-dashboard', link: '/' },
         { title: 'О проекте', icon: 'mdi-forum', link: '/about' },
@@ -65,6 +76,12 @@ export default {
       }
 
       return list
+    },
+    user() {
+      return this.$store.getters.getUser;
+    },
+    token() {
+      return this.$store.getters.getToken;
     }
   }
 };
