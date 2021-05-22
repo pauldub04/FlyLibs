@@ -46,6 +46,14 @@
                     {{ user.username }}
                   </v-list-item-title>
                   <v-list-item-subtitle> {{ user.email }} </v-list-item-subtitle>
+                  
+                  <v-row>
+                    <v-col>
+                      <v-btn to="/logout" class="mt-10">
+                        Выйти
+                      </v-btn>
+                    </v-col>
+                  </v-row>
 
                 </v-list-item-content>
               </v-col>
@@ -53,6 +61,7 @@
           </v-list-item>
         </v-list>
 
+      <!-- ---------------------------- -->
         <v-row v-else>
           <v-col cols="6">
             <v-form

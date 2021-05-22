@@ -87,13 +87,33 @@ exports.create = (req, res) => {
 }
 
 
-exports.getUser = (req, res) => {
+exports.getUserById = (req, res) => {
   const userId = req.body.id || req.params.id
   User.getUserById(userId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Cant find user with username ${userId}`
+          message: `Cant find user with id ${userId}`
+        });
+      } else {
+        res.status(500).send({
+          message: err.message || "Error while getting user"
+        });
+      }
+    }
+    else {
+      res.send(data);
+    }
+  });
+};
+
+exports.getUserByUsername = (req, res) => {
+  const username = req.body.username || req.params.username
+  User.getUserByUsername(username, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Cant find user with username ${username}`
         });
       } else {
         res.status(500).send({

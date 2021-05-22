@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
   {
     path: '/my',
@@ -48,12 +48,20 @@ const routes = [
   {
     path: '/library/:ind',
     name: 'Library',
-    component: () => import(/* webpackChunkName: "library" */ '../views/Library.vue')
+    component: () => import(/* webpackChunkName: "library" */ '../views/Library.vue'),
   },
   {
     path: '/user/:id',
     name: 'User',
-    component: () => import(/* webpackChunkName: "user" */ '../views/User.vue')
+    component: () => import(/* webpackChunkName: "user" */ '../views/User.vue'),
+  },
+  {
+    path: '/create',
+    name: 'Create',
+    component: () => import(/* webpackChunkName: "create" */ '../views/Create.vue'),
+    meta: {
+      toLog: true,
+    },
   },
 ]
 

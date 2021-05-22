@@ -1,5 +1,7 @@
 var Library = require("../models/library.model.js");
 
+var User = require("../models/user.model.js");
+
 exports.create = (req, res) => {
   if (!req.body) {
       res.status(400).send({
@@ -7,7 +9,34 @@ exports.create = (req, res) => {
     });
   }
 
-  const library = new Library({});
+  // get user id to save lib
+  User.getUserByUsername(req.user.username, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message || "Error while getting user"
+      });
+    }
+    else {
+      let user = data
+
+      const library = new Library({
+        id_user: user.id.toString(),
+        name: req.body.name.toString(),
+        description: req.body.description.toString() || null,
+        image: req.body.image.toString() || null,
+      });
+
+      Library.create(library, (err, data) => {
+        if (err) {
+          res.status(500).send({
+            message:
+              err.message || "Произошла ошибка во время выполнения кода"
+          });
+        }
+        else res.send(data);
+      });
+    }
+  });
 }
 
 exports.getAll = (req, res) => {

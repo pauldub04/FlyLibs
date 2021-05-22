@@ -1,6 +1,25 @@
 const sql = require("./db.js");
 
-const Library = function() {};
+const Library = function(lib) {
+  this.id_user = lib.id_user;
+  this.name = lib.name;
+  this.description = lib.description || null;
+  this.image = lib.image || null;
+};
+
+Library.create = (newLib, result) => {
+  const queryInsert = "INSERT INTO library SET ?";
+  sql.query(queryInsert, newLib, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+    console.log("Created lib", { id: res.insertId, ...newLib });
+
+    result(null, { id: res.insertId, ...newLib }); 
+  });
+};
 
 Library.getLibraries = (libId, result) => {
   let req = `
