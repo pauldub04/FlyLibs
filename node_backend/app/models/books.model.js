@@ -1,53 +1,103 @@
 const sql = require("./db.js");
 
-const Book = function() {};
+const Book = function(book) {
+  this.id_work = book.id_work;
+  this.id_library = book.id_library;
+  this.year_publishing = book.year_publishing;
+  this.description = book.description || null;
+  this.image = book.image || null;
+};
+
+Book.create = (newBook, result) => {
+  const queryInsert = "INSERT INTO book SET ?";
+  sql.query(queryInsert, newBook, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+    console.log("Created book", { id: res.insertId, ...newBook });
+
+    result(null, { id: res.insertId, ...newBook }); 
+  });
+};
 
 Book.getBooksFromLib = (libId, result) => {
-    let req = `
-      SELECT publication.id, book.name as book_name, book.description, book.image,
-      publication.id_library, genre.name as genre,
+  let req = `
+    SELECT book.id, work.name as book_name,
+    book.id_library, genre.name as genre, year_publishing,
 
-      author.name as author_name, author.surname as author_surname, author.patronymic as author_patronymic,
-      CONCAT(author.surname, ' ', author.name, ' ', author.patronymic) as author_fullname,
-      CONCAT(author.surname, ' ', author.name) as author_shortname,
+    author.name as author_name, author.surname as author_surname, author.patronymic as author_patronymic,
+    CONCAT(author.surname, ' ', author.name, ' ', author.patronymic) as author_fullname,
+    CONCAT(author.name, ' ', author.surname) as author_shortname
 
-      publisher.name as publisher, year_publishing, 
-      place.cupboard, place.shelf, type
 
-      -- #####################################
-      FROM publication left join book
-      on publication.id_book = book.id
+    -- #####################################
+    FROM book left join work
+    on book.id_work = work.id
 
-      left join author
-      on book.id_author = author.id
+    left join author
+    on work.id_author = author.id
 
-      left join genre
-      on book.id_genre = genre.id
+    left join genre
+    on work.id_genre = genre.id
+    -- #####################################
+  `;
 
-      left join publisher
-      on publication.id_publisher = publisher.id
+  if (libId != null)
+    req += `WHERE book.id_library = ${libId}`;
 
-      left join place
-      on publication.id_place = place.id
-      -- #####################################
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
 
-    `;
+    result(null, result_sql);
+  });
+}
 
-    if (libId != null)
-      req += `WHERE publication.id_library = ${libId}`;
 
-    sql.query(req, function (err, result_sql, fields) {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        throw err;
-      }
-  
-      if (result_sql.length == 0)
-        result({'kind': 'not_found'}, null);
-      else
-        result(null, result_sql);
-    });
-  }
+Book.getAuthors = (result) => {
+  let req = `
+    SELECT *,
+    CONCAT(author.surname, ' ', author.name, ' ', author.patronymic) as author_fullname,
+    CONCAT(author.name, ' ', author.surname) as author_shortname
+    FROM author
+  `;
+
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
+
+    result(null, result_sql);
+  });
+}
+
+Book.getWorks = (result) => {
+  let req = `
+    SELECT work.id, work.name, id_genre,
+    CONCAT(author.surname, ' ', author.name, ' ', author.patronymic) as author_fullname
+
+    FROM work
+
+    left join author
+    on work.id_author = author.id
+  `;
+
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
+
+    result(null, result_sql);
+  });
+}
     
-  module.exports = Book;
+module.exports = Book;

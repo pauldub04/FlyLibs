@@ -22,8 +22,6 @@ export default {
       },
       { text: 'Автор', value: 'author_fullname' },
       { text: 'Жанр', value: 'genre' },
-      { text: 'Издательство', value: 'publisher' },
-      { text: 'Шкаф', value: 'shelf' },
     ],
   }),
 }

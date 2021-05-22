@@ -22,8 +22,8 @@ exports.create = (req, res) => {
       const library = new Library({
         id_user: user.id.toString(),
         name: req.body.name.toString(),
-        description: req.body.description.toString() || null,
-        image: req.body.image.toString() || null,
+        // description: req.body.description.toString() || null,
+        // image: req.body.image.toString() || null,
       });
 
       Library.create(library, (err, data) => {
@@ -40,22 +40,22 @@ exports.create = (req, res) => {
 }
 
 exports.getAll = (req, res) => {
-    Library.getLibraries(req.params.libId, (err, data) => {
-      if (err) {
-          if (err.kind === "not_found") {
-            res.status(404).send({
-                message: `Cant find lib with id ${req.params.libId}`
-            });
-        } else {
-          res.status(500).send({
-            message: err.message || "Error while getting libs"
+  Library.getLibraries(req.params.libId, (err, data) => {
+    if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+              message: `Cant find lib with id ${req.params.libId}`
           });
-        }
+      } else {
+        res.status(500).send({
+          message: err.message || "Error while getting libs"
+        });
       }
-      else {
-        // res.setHeader('Access-Control-Allow-Origin', '*');
-        // res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
-        res.send(data);
-      }
-    });
-  };
+    }
+    else {
+      // res.setHeader('Access-Control-Allow-Origin', '*');
+      // res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
+      res.send(data);
+    }
+  });
+};

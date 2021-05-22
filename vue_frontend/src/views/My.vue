@@ -47,7 +47,7 @@ export default {
   mounted() {
     axios.get('/libraries/get_libraries')
     .then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       this.libraries = response.data
       this.libraries = this.libraries.filter(lib => lib.creator_id == this.$store.getters.getUser.id);
     });
