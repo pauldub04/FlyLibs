@@ -9,39 +9,47 @@
         </v-col>
       </v-row>
       
-      <v-row>
-        <v-col cols="auto" class="ml-auto">
-          <v-btn-toggle
-            v-model="toggle_view"
-            mandatory
-            group
-          >
-            <v-btn>
-              <v-icon>mdi-format-list-bulleted-square</v-icon>
-            </v-btn>
-            <v-btn>
-              <v-icon>mdi-view-grid</v-icon>
-            </v-btn>
-          </v-btn-toggle>
-        </v-col>
-      </v-row>
-
-      <v-divider class="mb-10"></v-divider> 
-
-      <v-row 
-        class="mb-15"
-      >
+      <v-row v-if="books.length == 0">
         <v-col>
-          <Table
-            v-if="toggle_view % 2 == 0"
-            :books="books"
-          />
-          <List
-            v-else
-            :books="books"
-          />
+          <p> В этой библиотеке ещё нет книг </p>
         </v-col>
       </v-row>
+
+      <div v-else>
+        <v-row>
+          <v-col cols="auto" class="ml-auto">
+            <v-btn-toggle
+              v-model="toggle_view"
+              mandatory
+              group
+            >
+              <v-btn>
+                <v-icon>mdi-format-list-bulleted-square</v-icon>
+              </v-btn>
+              <v-btn>
+                <v-icon>mdi-view-grid</v-icon>
+              </v-btn>
+            </v-btn-toggle>
+          </v-col>
+        </v-row>
+
+        <v-divider class="mb-10"></v-divider> 
+
+        <v-row 
+          class="mb-15"
+        >
+          <v-col>
+            <Table
+              v-if="toggle_view % 2 == 0"
+              :books="books"
+            />
+            <List
+              v-else
+              :books="books"
+            />
+          </v-col>
+        </v-row>
+      </div>
 
     </v-main>
   </v-container>

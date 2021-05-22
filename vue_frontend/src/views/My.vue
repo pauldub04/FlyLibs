@@ -13,13 +13,20 @@
         </v-col>
       </v-row>
       
+      <v-row v-if="libraries.length == 0">
+        <v-col>
+          <p> У вас пока нет библиотек </p>
+        </v-col>
+      </v-row>
 
-      <v-divider class="mt-15 mb-15"></v-divider> 
+      <div v-else>
+        <v-divider class="mt-15 mb-15"></v-divider> 
 
-      <LibrariesList
-        :libraries="libraries"
-        class="mb-15"
-      />
+        <LibrariesList
+          :libraries="libraries"
+          class="mb-15"
+        />
+      </div>
 
     </v-content>
   </v-container>
