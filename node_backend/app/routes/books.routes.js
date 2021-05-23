@@ -14,4 +14,5 @@ module.exports = app => {
   app.post("/books/addWork", auth.authenticateJWT, books.addWork);
   app.post("/books/addAuthor", auth.authenticateJWT, books.addAuthor);
 
+  app.post("/books/deleteBook", auth.authenticateJWT, books.deleteBook);
 };

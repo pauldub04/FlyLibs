@@ -176,6 +176,7 @@
               <Table
                 v-if="toggle_view % 2 == 0"
                 :books="books"
+                :lib="lib"
               />
               <List
                 v-else
@@ -344,6 +345,7 @@ export default {
       })
     },
     fetchBooks() {
+      console.log('fetched')
       axios.get(`/books/get_books/lib/${this.$route.params.ind}`)
       .then(response => {
         // console.log(response.data)

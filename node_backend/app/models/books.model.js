@@ -50,7 +50,6 @@ Book.addAuthor = (newAuthor, result) => {
   });
 };
 
-
 Book.getBooksFromLib = (libId, result) => {
   let req = `
     SELECT book.id, work.name as book_name,
@@ -86,7 +85,6 @@ Book.getBooksFromLib = (libId, result) => {
     result(null, result_sql);
   });
 }
-
 
 Book.getAuthors = (result) => {
   let req = `
@@ -146,6 +144,18 @@ Book.getGenres = (result) => {
   });
 }
 
+Book.deleteBook = (id, result) => {
+  let req = `DELETE FROM book WHERE id = ${id}`;
 
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
+
+    result(null, result_sql);
+  });
+}
 
 module.exports = Book;

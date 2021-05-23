@@ -142,3 +142,16 @@ exports.addAuthor = (req, res) => {
   });
 };
 
+exports.deleteBook = (req, res) => {
+  let id = req.body.id;
+
+  Book.deleteBook(id, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error while deleting book"
+      });
+    else {
+      res.send(data);
+    }
+  });
+};

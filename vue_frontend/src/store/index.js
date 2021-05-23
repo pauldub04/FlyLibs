@@ -57,7 +57,7 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error.response.data)
         })
-    },  
+    },
 
     logOut(ctx) {
       axios.defaults.headers.common['Authorization'] = '';
