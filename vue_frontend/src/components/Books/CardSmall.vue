@@ -11,7 +11,7 @@
     ></v-img>
     <v-img
       v-else
-      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+      src="https://polit.ru/media/photolib/2019/09/05/ps_hands-hand-book-reading_1567690476.jpg"
       height="200px"
     ></v-img>
 

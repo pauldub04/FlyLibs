@@ -38,7 +38,8 @@
     max-width="344"
   >
     <v-img
-      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+      src="https://media.proglib.io/wp-uploads/2019/02/books-lit@2x-e1550903308223.jpg"
+      color='grey'
       height="50px"
     ></v-img>
 
