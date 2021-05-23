@@ -17,6 +17,18 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+      <v-dialog v-model="dialogOrder" max-width="500px">
+        <v-card>
+          <v-card-title class="headline">Попросить книгу?</v-card-title>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="closeOrder">Отмена</v-btn>
+            <v-btn color="blue darken-1" text @click="orderConfirm">Да</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </template>
     <template v-slot:item.actions="{ item }">
       <!-- <v-icon
@@ -33,6 +45,21 @@
         mdi-delete
       </v-icon>
     </template>
+    <template v-slot:item.order="{ item }">
+      <!-- <v-icon
+        small
+        class="mr-2"
+        @click="editItem(item)"
+      >
+        mdi-pencil
+      </v-icon> -->
+      <v-icon
+        small
+        @click="orderItem(item)"
+      >
+        mdi-book
+      </v-icon>
+    </template>
   </v-data-table>
 </template>
 
@@ -46,35 +73,55 @@ export default {
   },
   data: () => ({
     dialogDelete: false,
-    // headers: ,
+    dialogOrder: false,
 
-    editedIndex: -1,
     editedItem: null,
-    defaultItem: {
-      name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
+    giveItem: null,
   }),
 
   watch: {
     dialogDelete (val) {
       val || this.closeDelete()
     },
+    dialogOrder (val) {
+      val || this.closeOrder()
+    },
   },
 
   methods: {
+    orderItem(item) {
+      this.dialogOrder = true
+      this.giveItem = item
+    },
+
+    orderConfirm() {
+      axios.post('/books/giveBook', {
+        id_owner: this.lib.creator_id,
+        id_user: this.user.id,
+        id_book: this.giveItem.id
+      }, {
+        headers: {
+          'Authorization': `Bearer ${this.$store.getters.getToken}` 
+        }
+      })
+      .then(response => {
+        console.log(response.data)
+        this.$router.push('/orders')
+      })
+      .catch((error) => {
+        console.log(error.response)
+        alert(error.response.data.message)
+      })
+
+      this.closeOrder()
+    },
+
     deleteItem (item) {
       this.editedItem = item
       this.dialogDelete = true
     },
 
     deleteItemConfirm () {
-      // this.desserts.splice(this.editedIndex, 1)
-
-      console.log(this.editedItem)
       axios.post('/books/deleteBook', {
         id: this.editedItem.id,
       }, {
@@ -95,20 +142,14 @@ export default {
       this.closeDelete()
     },
 
-    close () {
-      this.dialog = false
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
-    },
-
     closeDelete () {
       this.dialogDelete = false
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
+      this.editedItem = null
+    },
+
+    closeOrder () {
+      this.dialogOrder = false
+      this.giveItem = null
     },
 
   },
@@ -127,6 +168,9 @@ export default {
       ]
       if (this.user.role === 'admin' || this.user.id == this.lib.creator_id)
         list.push({ text: 'Действия', value: 'actions', sortable: false })
+
+      if (this.user.id !== this.lib.creator_id)
+        list.push({ text: 'Заказ', value: 'order', sortable: false })
 
       return list
     },

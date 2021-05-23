@@ -44,7 +44,7 @@
 
                   <v-list-item-title class="mt-5">
                     {{ user.username }}
-                    <span v-if="user.role === 'admin'">(администратор)</span>
+                    <span v-if="user.role === 'admin'" class="primary--text"> (администратор)</span>
                   </v-list-item-title>
                   <v-list-item-subtitle> {{ user.email }} </v-list-item-subtitle>
                   

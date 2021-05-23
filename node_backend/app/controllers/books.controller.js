@@ -155,3 +155,53 @@ exports.deleteBook = (req, res) => {
     }
   });
 };
+
+exports.giveBook = (req, res) => {
+  Book.giveBook(req.body, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error while giving book"
+      });
+    else {
+      res.send(data);
+    }
+  });
+};
+
+exports.getOrdersById = (req, res) => {
+  Book.getOrdersById(req.body, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error while getting orders"
+      });
+    else {
+      res.send(data);
+    }
+  });
+};
+
+exports.changeStatus = (req, res) => {
+  Book.changeStatus(req.body, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error while changing status"
+      });
+    else {
+      res.send(data);
+    }
+  });
+};
+
+exports.deleteOrder = (req, res) => {
+  let id = req.body.id;
+
+  Book.deleteOrder(id, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error while deleting order"
+      });
+    else {
+      res.send(data);
+    }
+  });
+};

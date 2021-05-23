@@ -15,4 +15,10 @@ module.exports = app => {
   app.post("/books/addAuthor", auth.authenticateJWT, books.addAuthor);
 
   app.post("/books/deleteBook", auth.authenticateJWT, books.deleteBook);
+  app.post("/books/giveBook", auth.authenticateJWT, books.giveBook);
+
+
+  app.post("/orders/getOrdersById", auth.authenticateJWT, books.getOrdersById);
+  app.post("/orders/changeStatus", auth.authenticateJWT, books.changeStatus);
+  app.post("/orders/deleteOrder", auth.authenticateJWT, books.deleteOrder);
 };

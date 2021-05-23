@@ -72,6 +72,7 @@ export default {
 
       if (isLogged) {
         list.splice(1, 0, { title: 'Мои библиотеки', icon: 'mdi-library', link: '/my' });
+        list.push({ title: 'Заказы', icon: 'mdi-book-open-variant', link: '/orders' })
         list.push({ title: 'Выйти', icon: 'mdi-logout', link: '/logout' })
       } else {
         list.push({ title: 'Войти', icon: 'mdi-login', link: '/signin' })

@@ -72,6 +72,14 @@ const routes = [
       admin: true,
     },
   },
+  {
+    path: '/orders',
+    name: 'Orders',
+    component: () => import(/* webpackChunkName: "orders" */ '../views/Orders.vue'),
+    meta: {
+      toLog: true,
+    },
+  },
 ]
 
 const router = new VueRouter({

@@ -158,4 +158,87 @@ Book.deleteBook = (id, result) => {
   });
 }
 
+Book.giveBook = (data, result) => {
+  let set = {
+    id_owner: data.id_owner.toString(),
+    id_user: data.id_user.toString(),
+    id_book: data.id_book.toString(),
+    // status: 'Запрошена',
+  }
+
+  let req = `INSERT INTO book_order SET ?`;
+
+  sql.query(req, set, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
+
+    result(null, result_sql);
+  });
+}
+
+Book.getOrdersById = (data, result) => {
+
+  let req = `
+    SELECT book_order.id, work.name, book_order.status
+    FROM book_order 
+    
+    left join book
+    on book_order.id_book = book.id
+
+    left join work
+    on book.id_work = work.id
+  `;
+  if (data.type.toString() == 'my') {
+    req += `WHERE id_user = ${data.id.toString()}`;
+  } else {
+    req += `WHERE id_owner = ${data.id.toString()}`;
+  }
+
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
+
+    result(null, result_sql);
+  });
+}
+
+Book.changeStatus = (data, result) => {
+  console.log(data)
+  let req = `
+    UPDATE book_order
+    SET status = ${data.status}
+    WHERE id = ${data.id}
+  `;
+
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
+
+    result(null, result_sql);
+  });
+}
+
+Book.deleteOrder = (id, result) => {
+  let req = `DELETE FROM book_order WHERE id = ${id}`;
+
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
+
+    result(null, result_sql);
+  });
+}
+
 module.exports = Book;
