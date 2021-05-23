@@ -39,9 +39,17 @@
                     <v-text-field
                       v-model="newWork"
                       label="Название"
-                      :rules="[v => !!v || 'Введите Название']"
+                      :rules="[v => !!v || 'Введите название']"
                       required
                     ></v-text-field>
+                  </v-col>
+                  <v-col>
+                    <v-autocomplete
+                      v-model="genre"
+                      :items="genres.map(value => value.name)"
+                      label="Жанр"
+                      :rules="[v => !!v || 'Введите жанр']"
+                    ></v-autocomplete>
                   </v-col>
                 </v-row>
               </div>
@@ -105,6 +113,7 @@
               ></v-text-field>
 
               <v-btn
+                :disabled="!valid"
                 color="success"
                 class="mt-10"
                 @click="save"
@@ -208,6 +217,9 @@ export default {
       patronymic: '',
     },
 
+    genres: [],
+    genre: '',
+
     works: [],
     work: '',
     name_toggle: 0,
@@ -230,6 +242,12 @@ export default {
       this.works = response.data
     });
 
+    axios.get(`/books/get_genres`)
+    .then(response => {
+      console.log(response.data)
+      this.genres = response.data
+    });
+
     axios.get(`/libraries/get_libraries/${this.$route.params.ind}`)
     .then(response => {
       // console.log(response.data)
@@ -242,31 +260,88 @@ export default {
     save() {
       if (this.isPickedBook) {
         let work_ind = this.works.map(value => value.name).indexOf(this.work);
-        // let author_ind = this.authors.map(value => value.author_fullname).indexOf(this.author);
-
         let work = this.works[work_ind]
-        // let author = this.authors[author_ind]
+        this.postBook(work);
 
-        axios.post('/books/addBook', {
-          id_work: work.id,
-          id_library: this.$route.params.ind,
-          year_publishing: this.year,
-        }, {
-          headers: {
-            'Authorization': `Bearer ${this.$store.getters.getToken}` 
-          }
-        })
-        .then(response => {
-          console.log(response.data)
+      } else {
+        if (this.author_toggle == 0) {
+          let author_ind = this.authors.map(value => value.author_fullname).indexOf(this.author);
+          let author = this.authors[author_ind]
+          let genre_ind = this.genres.map(value => value.name).indexOf(this.genre);
+          let genre = this.genres[genre_ind]
 
-          this.fetchBooks()
-          this.addBook = false
-        })
-        .catch((error) => {
-          console.log(error.response)
-          alert(error.response.data.message)
-        })
+          this.postWork(this.newWork, author, genre)
+
+        } else {
+          console.log('author')
+          this.postAuthor()
+        }
       }
+      
+    },
+    postAuthor() {
+      axios.post('/books/addAuthor', {
+        name: this.newAuthor.name,
+        surname: this.newAuthor.surname,
+        patronymic: this.newAuthor.patronymic,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${this.$store.getters.getToken}` 
+        }
+      })
+      .then(response => {
+        console.log(response.data)
+        let author = response.data
+        let genre_ind = this.genres.map(value => value.name).indexOf(this.genre);
+        let genre = this.genres[genre_ind]
+
+        this.postWork(this.newWork, author, genre)
+      })
+      .catch((error) => {
+        console.log(error.response)
+        alert(error.response.data.message)
+      })
+    },
+    postWork(work, author, genre) {
+      axios.post('/books/addWork', {
+        name: work,
+        id_author: author.id,
+        id_genre: genre.id,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${this.$store.getters.getToken}` 
+        }
+      })
+      .then(response => {
+        console.log(response.data)
+        let createdWork = response.data
+        this.postBook(createdWork);
+      })
+      .catch((error) => {
+        console.log(error.response)
+        alert(error.response.data.message)
+      })
+    },
+    postBook(work) {
+      axios.post('/books/addBook', {
+        id_work: work.id,
+        id_library: this.$route.params.ind,
+        year_publishing: this.year,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${this.$store.getters.getToken}` 
+        }
+      })
+      .then(response => {
+        console.log(response.data)
+
+        this.fetchBooks()
+        this.clear()
+      })
+      .catch((error) => {
+        console.log(error.response)
+        alert(error.response.data.message)
+      })
     },
     fetchBooks() {
       axios.get(`/books/get_books/lib/${this.$route.params.ind}`)
@@ -274,6 +349,26 @@ export default {
         // console.log(response.data)
         this.books = response.data
       });
+    },
+    clear() {
+      this.valid = false
+      this.toggle_view = 0
+      this.addBook = false
+
+      this.author = ''
+      this.author_toggle = false
+      this.newAuthor = {
+        name: '',
+        surname: '',
+        patronymic: '',
+      },
+
+      this.work = ''
+      this.name_toggle = 0
+      this.newWork = ''
+
+      this.genre = ''
+      this.year = ''
     }
   },
   watch: {

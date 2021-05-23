@@ -69,3 +69,53 @@ exports.getWorks = (req, res) => {
     }
   });
 };
+
+exports.getGenres = (req, res) => {
+  Book.getGenres((err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error while getting genres"
+      });
+    else {
+      res.send(data);
+    }
+  });
+};
+
+exports.addWork = (req, res) => {
+  const work = {
+    name: req.body.name.toString(),
+    id_author: req.body.id_author.toString(),
+    id_genre: req.body.id_genre.toString(),
+  };
+
+  Book.addWork(work, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error while adding work"
+      });
+    else {
+      res.send(data);
+    }
+  });
+};
+
+exports.addAuthor = (req, res) => {
+  const author = {
+    name: req.body.name.toString(),
+    surname: req.body.surname.toString(),
+    patronymic: req.body.patronymic.toString(),
+    bio: null,
+  };
+
+  Book.addAuthor(author, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error while adding author"
+      });
+    else {
+      res.send(data);
+    }
+  });
+};
+

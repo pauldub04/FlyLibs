@@ -22,6 +22,35 @@ Book.create = (newBook, result) => {
   });
 };
 
+Book.addWork = (newWork, result) => {
+  const queryInsert = "INSERT INTO work SET ?";
+  sql.query(queryInsert, newWork, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+    console.log("Created work", { id: res.insertId, ...newWork });
+
+    result(null, { id: res.insertId, ...newWork }); 
+  });
+};
+
+Book.addAuthor = (newAuthor, result) => {
+  const queryInsert = "INSERT INTO author SET ?";
+  sql.query(queryInsert, newAuthor, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+    console.log("Created work", { id: res.insertId, ...newAuthor });
+
+    result(null, { id: res.insertId, ...newAuthor }); 
+  });
+};
+
+
 Book.getBooksFromLib = (libId, result) => {
   let req = `
     SELECT book.id, work.name as book_name,
@@ -100,4 +129,23 @@ Book.getWorks = (result) => {
   });
 }
     
+Book.getGenres = (result) => {
+  let req = `
+    SELECT *
+    FROM genre
+  `;
+
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
+
+    result(null, result_sql);
+  });
+}
+
+
+
 module.exports = Book;
