@@ -3,7 +3,7 @@ const sql = require("./db.js");
 const Book = function(book) {
   this.id_work = book.id_work;
   this.id_library = book.id_library;
-  this.year_publishing = book.year_publishing;
+  // this.year_publishing = book.year_publishing;
   this.description = book.description || null;
   this.image = book.image || null;
 };
@@ -54,7 +54,7 @@ Book.addAuthor = (newAuthor, result) => {
 Book.getBooksFromLib = (libId, result) => {
   let req = `
     SELECT book.id, work.name as book_name,
-    book.id_library, genre.name as genre, year_publishing,
+    book.id_library, genre.name as genre,
 
     author.name as author_name, author.surname as author_surname, author.patronymic as author_patronymic,
     CONCAT(author.surname, ' ', author.name, ' ', author.patronymic) as author_fullname,

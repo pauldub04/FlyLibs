@@ -36,7 +36,7 @@ export default new Vuex.Store({
           ctx.commit('setUser', response.data.user);
 
           console.log('signed in')
-          router.push('/')
+          router.push('/my')
         })
         .catch((error) => {
           console.log(error)

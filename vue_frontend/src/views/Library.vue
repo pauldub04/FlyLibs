@@ -104,13 +104,13 @@
                   </v-col>
                 </v-row>
               </div>
-
+              <!-- 
               <v-text-field
                 v-model="year"
                 label="Год выпуска"
                 :rules="[v => !!v || 'Введите год выпуска']"
                 required
-              ></v-text-field>
+              ></v-text-field> -->
 
               <v-btn
                 :disabled="!valid"
@@ -225,7 +225,7 @@ export default {
     name_toggle: 0,
     newWork: '',
 
-    year: '',
+    // year: '',
   }),
   mounted() {
     this.toggle_view = JSON.parse(localStorage.getItem("library_view_type")) || 0;
@@ -326,7 +326,7 @@ export default {
       axios.post('/books/addBook', {
         id_work: work.id,
         id_library: this.$route.params.ind,
-        year_publishing: this.year,
+        // year_publishing: this.year,
       }, {
         headers: {
           'Authorization': `Bearer ${this.$store.getters.getToken}` 
@@ -368,7 +368,7 @@ export default {
       this.newWork = ''
 
       this.genre = ''
-      this.year = ''
+      // this.year = ''
     }
   },
   watch: {
