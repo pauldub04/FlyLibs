@@ -67,6 +67,9 @@ export default {
         { title: 'О проекте', icon: 'mdi-forum', link: '/about' },
       ]
 
+      if (this.user.role === 'admin')
+        list.push({ title: 'Администраторы', icon: 'mdi-account', link: '/admin' })
+
       if (isLogged) {
         list.splice(1, 0, { title: 'Мои библиотеки', icon: 'mdi-library', link: '/my' });
         list.push({ title: 'Выйти', icon: 'mdi-logout', link: '/logout' })

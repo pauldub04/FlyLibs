@@ -4,7 +4,10 @@ module.exports = app => {
 
   app.post("/users/get_user", users.getUserById);
   app.get("/users/get_user/:id", users.getUserById);
+  app.get("/users/get_admins", users.getAdmins);
+  app.get("/users/get_users", users.getUsers);
 
+  app.post("/users/make_admin", auth.adminJWT, users.makeAdmin);
 
   app.post("/users/update/:id", auth.authenticateJWT, users.updateUser);
 

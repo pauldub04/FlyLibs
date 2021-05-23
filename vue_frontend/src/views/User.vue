@@ -44,10 +44,11 @@
 
                   <v-list-item-title class="mt-5">
                     {{ user.username }}
+                    <span v-if="user.role === 'admin'">(администратор)</span>
                   </v-list-item-title>
                   <v-list-item-subtitle> {{ user.email }} </v-list-item-subtitle>
                   
-                  <v-row>
+                  <v-row v-if="$store.getters.getUser.id == $route.params.id">
                     <v-col>
                       <v-btn to="/logout" class="mt-10">
                         Выйти

@@ -170,3 +170,41 @@ exports.testAdmin = (req, res) => {
 
   res.send(role);
 }
+
+exports.getAdmins = (req, res) => {
+  User.getAdmins((err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error while getting admins"
+      });
+    else {
+      res.send(data);
+    }
+  });
+};
+
+exports.getUsers = (req, res) => {
+  User.getUsers((err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error while getting users"
+      });
+    else {
+      res.send(data);
+    }
+  });
+};
+
+exports.makeAdmin = (req, res) => {
+  User.makeAdmin(req.body.id.toString(), (err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Error while making admin"
+      });
+    else {
+      res.send(data);
+    }
+  });
+};
+
+

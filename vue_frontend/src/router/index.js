@@ -63,6 +63,15 @@ const routes = [
       toLog: true,
     },
   },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import(/* webpackChunkName: "admin" */ '../views/Admin.vue'),
+    meta: {
+      toLog: true,
+      admin: true,
+    },
+  },
 ]
 
 const router = new VueRouter({
@@ -73,7 +82,9 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.toMain && store.getters.getToken !== null)
+  if (to.meta.admin && (store.getters.getUser.role !== 'admin' || store.getters.getToken === null))
+    next('/')
+  else if (to.meta.toMain && store.getters.getToken !== null)
     next('/')
   else if (to.meta.toLog && store.getters.getToken == null)
     next('/signin')

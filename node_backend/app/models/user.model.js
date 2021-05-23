@@ -96,5 +96,59 @@ User.getUserById = (id, result) => {
       result(null, result_sql[0]);
   });
 }
+
+User.getAdmins = (result) => {
+  let req = `
+    SELECT *
+    FROM user
+    WHERE role like 'admin'
+  `;
+
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
+
+    result(null, result_sql);
+  });
+}
+
+User.getUsers = (result) => {
+  let req = `
+    SELECT *
+    FROM user
+  `;
+
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
+
+    result(null, result_sql);
+  });
+}
+
+User.makeAdmin = (id, result) => {
+  let req = `
+    UPDATE user
+    SET role = "admin"
+    WHERE id = ${id}
+  `;
+
+  sql.query(req, function (err, result_sql, fields) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      throw err;
+    }
+
+    result(null, result_sql);
+  });
+}
+
   
 module.exports = User;
