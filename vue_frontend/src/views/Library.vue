@@ -231,17 +231,7 @@ export default {
   mounted() {
     this.toggle_view = JSON.parse(localStorage.getItem("library_view_type")) || 0;
 
-    axios.get(`/books/get_authors`)
-    .then(response => {
-      // console.log(response.data)
-      this.authors = response.data
-    });
-
-    axios.get(`/books/get_works`)
-    .then(response => {
-      // console.log(response.data)
-      this.works = response.data
-    });
+    this.fetch()
 
     axios.get(`/books/get_genres`)
     .then(response => {
@@ -337,6 +327,7 @@ export default {
         console.log(response.data)
 
         this.fetchBooks()
+        this.fetch()
         this.clear()
       })
       .catch((error) => {
@@ -350,6 +341,19 @@ export default {
       .then(response => {
         // console.log(response.data)
         this.books = response.data
+      });
+    },
+    fetch() {
+      axios.get(`/books/get_authors`)
+      .then(response => {
+        // console.log(response.data)
+        this.authors = response.data
+      });
+
+      axios.get(`/books/get_works`)
+      .then(response => {
+        // console.log(response.data)
+        this.works = response.data
       });
     },
     clear() {
