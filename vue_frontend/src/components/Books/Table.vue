@@ -166,16 +166,19 @@ export default {
         { text: 'Автор', value: 'author_fullname' },
         { text: 'Жанр', value: 'genre' },
       ]
-      if (this.user.role === 'admin' || this.user.id == this.lib.creator_id)
+      if ((this.user.role === 'admin' || this.user.id == this.lib.creator_id) && this.token)
         list.push({ text: 'Действия', value: 'actions', sortable: false })
 
-      if (this.user.id !== this.lib.creator_id)
+      if (this.user.id !== this.lib.creator_id && this.token)
         list.push({ text: 'Заказ', value: 'order', sortable: false })
 
       return list
     },
     user() {
       return this.$store.getters.getUser;
+    },
+    token() {
+      return this.$store.getters.getToken;
     },
   }
 }
