@@ -1,5 +1,6 @@
 const http = require('http');
 const express = require('express');
+const path = require('path');
 const webServerConfig = require('../config/web-server.js');
 
 const auth = require('../routes/auth.routes');
@@ -11,13 +12,15 @@ function initialize() {
   return new Promise((resolve, reject) => {
     const app = express();
     app.use(express.json());
+    app.use(express.static(path.join(__dirname, '../../../vue_frontend/dist')));
     httpServer = http.createServer(app);
     
     dotenv.config();
     //require('crypto').randomBytes(64).toString('hex')
 
     app.get('/', (req, res) => {
-      res.send({ message: 'on /' });
+      // res.send({ message: 'on /' });
+      res.sendFile(path.join(__dirname, '../../../vue_frontend/dist/index.html'));
     });
   
     auth(app);
