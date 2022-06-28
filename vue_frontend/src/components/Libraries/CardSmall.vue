@@ -1,44 +1,15 @@
 <template>
-  <!-- <v-card
-    class="mx-auto"
-    min-height="200"
-    outlined
-  >
-    <v-list-item three-line>
-      <v-list-item-content>
-        <div class="overline mb-4">
-          OVERLINE
-        </div>
-        <v-list-item-title class="headline mb-1">
-          {{ library.name }}
-        </v-list-item-title>
-        <v-list-item-subtitle> {{ library.description }}</v-list-item-subtitle>
-      </v-list-item-content>
-
-      <v-list-item-avatar
-        tile
-        size="80"
-        color="grey"
-      ></v-list-item-avatar>
-    </v-list-item>
-
-    <v-card-actions>
-      <v-btn
-        outlined
-        rounded
-        text
-      >
-        Посетить
-      </v-btn>
-    </v-card-actions> 
-  </v-card> -->
-
   <v-card
     class="mx-auto"
     max-width="344"
   >
-    <v-img
-      src="https://media.proglib.io/wp-uploads/2019/02/books-lit@2x-e1550903308223.jpg"
+    <v-img v-if="library.image"
+      :src="'http://localhost:3000/' + library.image"
+      color='grey'
+      height="50px"
+    ></v-img>
+    <v-img v-else
+      src="https://avatars.mds.yandex.net/i?id=e4cdd76503ad8f779bab5bfd1be112aa-3979426-images-thumbs&n=13&exp=1"
       color='grey'
       height="50px"
     ></v-img>
