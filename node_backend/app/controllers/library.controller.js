@@ -2,10 +2,15 @@ var Library = require("../models/library.model.js");
 
 var User = require("../models/user.model.js");
 
+//image
+
+//----------------------------------------
+
+
 exports.create = (req, res) => {
   if (!req.body) {
-      res.status(400).send({
-      message: "У нас не может не быть контента"
+    res.status(400).send({
+      message: "Нет контента"
     });
   }
 
@@ -22,8 +27,8 @@ exports.create = (req, res) => {
       const library = new Library({
         id_user: user.id.toString(),
         name: req.body.name.toString(),
-        // description: req.body.description.toString() || null,
-        // image: req.body.image.toString() || null,
+        description: req.body.description.toString() || null,
+        image: req.file.path || null,
       });
 
       Library.create(library, (err, data) => {

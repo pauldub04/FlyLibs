@@ -12,16 +12,16 @@ function initialize() {
   return new Promise((resolve, reject) => {
     const app = express();
     app.use(express.json());
-    app.use(express.static(path.join(__dirname, '../../../vue_frontend/dist')));
     httpServer = http.createServer(app);
     
     dotenv.config();
     //require('crypto').randomBytes(64).toString('hex')
 
     app.get('/', (req, res) => {
-      // res.send({ message: 'on /' });
-      res.sendFile(path.join(__dirname, '../../../vue_frontend/dist/index.html'));
+      res.send({ message: 'on /' });
     });
+
+    app.use('/uploads', express.static('uploads'));
   
     auth(app);
     require("../routes/library.routes.js")(app);

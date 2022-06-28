@@ -21,10 +21,15 @@
               v-model="desc"
               label="Описание"
             ></v-text-field>
-            <v-text-field
-              v-model="img"
-              label="Фотография (ссылка)"
-            ></v-text-field>
+
+            <v-file-input
+              chips
+              show-size
+              prepend-icon="mdi-camera"
+              label="Фотография (необязательно)"
+              truncate-length="50"
+              @change="uploadImage"
+            ></v-file-input>
 
             <v-btn
               :disabled="!valid"
@@ -52,23 +57,27 @@ export default {
     valid: false,
     name: 'Библиотека ',
     desc: '',
-    img: '',
+    image: '',
     namesRules: [
       v => !!v || 'Введите название',
       v => (v != 'Библиотека ') || 'Введите название',
-    ]
+    ],
   }),
   mounted() {},
   computed: {},
   methods: {
+    uploadImage(e) {
+      this.image = e;
+    },
     create() {
-      axios.post('/libraries/create', {
-        name: this.name,
-        description: this.desc,
-        image: this.img,
-      }, {
+      let formData = new FormData();
+      formData.append('name', this.name);
+      formData.append('description', this.desc);
+      formData.append('image', this.image);
+
+      axios.post('/libraries/create', formData, {
         headers: {
-          'Authorization': `Bearer ${this.$store.getters.getToken}` 
+          'Authorization': `Bearer ${this.$store.getters.getToken}`,
         }
       })
       .then(response => {
