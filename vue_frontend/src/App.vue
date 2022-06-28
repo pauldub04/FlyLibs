@@ -1,13 +1,12 @@
 <template>
   <v-app>
-  <v-navigation-drawer app v-model="drawer">
-    <v-list dense rounded>
+  <v-navigation-drawer app expand-on-hover>
+    <v-list dense rounded class="px-0">
       <v-list-item
         v-for="item in drawer_list"
         :key="item.title"
         :to="item.link"
         link
-        @click="drawer = !drawer"
       >
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
@@ -21,7 +20,6 @@
   </v-navigation-drawer>
 
   <v-app-bar app flat>
-    <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     <v-app-bar-nav-icon class="ml-5">
       <v-icon>mdi-book</v-icon>
     </v-app-bar-nav-icon>
@@ -57,7 +55,7 @@ export default {
   components: {
   },
   data: () => ({
-    drawer: false,
+    drawer: true,
   }),
   computed: {
     drawer_list() {
@@ -87,6 +85,9 @@ export default {
     token() {
       return this.$store.getters.getToken;
     }
+  },
+  beforeCreate() {
+    this.$vuetify.theme.dark = true;
   }
 };
 </script>
