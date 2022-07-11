@@ -11,7 +11,7 @@
     ></v-img>
     <v-img
       v-else
-      src="https://polit.ru/media/photolib/2019/09/05/ps_hands-hand-book-reading_1567690476.jpg"
+      src="https://avatars.mds.yandex.net/get-zen_doc/1722013/pub_5d7e8f05e6e8ef00ad8d5821_5d7e9c7586c4a900b2be40a3/scale_1200"
       height="200px"
     ></v-img>
 

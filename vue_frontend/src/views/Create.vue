@@ -89,6 +89,8 @@ export default {
         alert(error.response.data.message)
       })
 
+      this.image = '';
+
     }
   },
 }

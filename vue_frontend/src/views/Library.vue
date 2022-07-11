@@ -350,6 +350,8 @@ export default {
         console.log(error.response)
         alert(error.response.data.message)
       })
+
+      this.image = '';
     },
     fetchBooks() {
       console.log('fetched')
