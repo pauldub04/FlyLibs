@@ -19,7 +19,7 @@
     </v-card-title>
 
     <v-card-subtitle>
-      {{ library.creator }}
+      {{ library.userSurname }} {{ library.userName }}
     </v-card-subtitle>
 
     <v-card-actions>

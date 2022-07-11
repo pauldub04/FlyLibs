@@ -63,24 +63,6 @@ CREATE TABLE `book` (
   `description` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `book`
---
-
-INSERT INTO `book` (`id`, `id_work`, `id_library`, `image`, `description`) VALUES
-(1, 1, 1, NULL, NULL),
-(2, 2, 1, NULL, NULL),
-(3, 3, 1, NULL, NULL),
-(4, 4, 1, NULL, NULL),
-(5, 5, 1, NULL, NULL),
-(6, 6, 1, NULL, NULL),
-(7, 3, 2, NULL, NULL),
-(8, 6, 2, NULL, NULL),
-(9, 7, 3, NULL, NULL),
-(11, 8, 3, NULL, NULL),
-(12, 9, 4, NULL, NULL),
-(13, 10, 4, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -94,15 +76,6 @@ CREATE TABLE `book_order` (
   `id_book` int NOT NULL,
   `status` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `book_order`
---
-
-INSERT INTO `book_order` (`id`, `id_owner`, `id_user`, `id_book`, `status`) VALUES
-(14, 1, 4, 3, 1),
-(15, 1, 4, 4, 2),
-(16, 4, 1, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -164,16 +137,6 @@ CREATE TABLE `library` (
   `image` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `library`
---
-
-INSERT INTO `library` (`id`, `id_user`, `name`, `description`, `image`) VALUES
-(1, 1, 'Библиотека Иванова', NULL, NULL),
-(2, 1, 'Вторая библиотека Иванова', NULL, NULL),
-(3, 2, 'Библиотека Петрова', NULL, NULL),
-(4, 4, 'Крутая библиотека', NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -190,15 +153,6 @@ CREATE TABLE `user` (
   `role` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `name`, `surname`, `role`) VALUES
-(1, 'user1', 'user1@gmail.com', '$2a$10$BOE/xSMGNjpRNtmYe4mTC./nt1c9q/cqH20HrSEYQuCFCwsNqieMC', 'Иван', 'Иванов', 'user'),
-(2, 'user2', 'user2@gmail.com', '$2a$10$gmtzAqX.EJR.HnlsAilxEOaBjkjj8yvT3zdiO9XVnEpvdDElJimuK', 'Петр', 'Петров', 'user'),
-(3, 'user3', 'user3@gmail.com', '$2a$10$h/a9Xwdqz3V84lWpnIpFdu6GpfQkKEi1dXIRYCPW495jw4HFcDVi2', 'Иван', 'Петров', 'admin'),
-(4, 'user5', 'user5@gmail.com', '$2a$10$tZ1qmbysjg90FPQ3.bPeu.y1LBjijGVrDj66J06.Fw45rm9fdKlQW', 'Кирилл', 'Иванов', 'user');
 
 -- --------------------------------------------------------
 

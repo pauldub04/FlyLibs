@@ -42,7 +42,7 @@ export default new Vuex.Store({
           console.log(error)
           console.log(error.response.data)
           alert(error.response.data)
-        })
+        })z
     },
 
     async signUp(ctx, credentials) {

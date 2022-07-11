@@ -3,7 +3,7 @@
     <v-col
       v-for="(book, i) in books"
       :key="i"
-      cols="2"
+      cols="3"
     >
       <CardSmall
         :book="book"

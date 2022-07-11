@@ -13,7 +13,7 @@ User.create = (newUser, result) => {
   const queryInsert = "INSERT INTO user SET ?";
   sql.query(queryInsert, newUser, (err, res) => {
     if (err) {
-      console.log("error: ", err);
+      console.lozg("error: ", err);
       result(err, null);
       return;
     }

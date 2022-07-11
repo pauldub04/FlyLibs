@@ -11,7 +11,7 @@
     ></v-img>
     <v-img
       v-else
-      src="https://avatars.mds.yandex.net/get-zen_doc/1722013/pub_5d7e8f05e6e8ef00ad8d5821_5d7e9c7586c4a900b2be40a3/scale_1200"
+      src="https://catherineasquithgallery.com/uploads/posts/2021-02/1612504554_94-p-knigi-na-serom-fone-126.jpg"
       height="200px"
     ></v-img>
 

@@ -30,7 +30,7 @@ function initialize() {
  
     httpServer.listen(webServerConfig.port)
       .on('listening', () => {
-        console.log(`Web server listening on localhost:${webServerConfig.port}`);
+        console.lozg(`Web server listening on localhost:${webServerConfig.port}`);
  
         resolve();
       })

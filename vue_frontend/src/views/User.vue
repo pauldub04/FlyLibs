@@ -21,14 +21,14 @@
                   <span class="white--text headline"> {{ user.name.charAt(0) + user.surname.charAt(0) }} </span>
                 </v-avatar>
               </v-col>
-              <v-col>
+              <v-col cols="10">
                 <v-list-item-content>
                   <v-list-item-title>
                     <v-row>
-                      <v-col cols="3">
+                      <v-col cols="6">
                         <h1>{{ user.name }} {{ user.surname }}</h1>
                       </v-col>
-                      <v-col v-if="$route.params.id == $store.getters.getUser.id" class="ml-5">
+                      <v-col cols="1" v-if="$route.params.id == $store.getters.getUser.id" class="ml-">
                         <v-btn icon @click="edit = !edit">
                           <v-icon>mdi-pen</v-icon>
                         </v-btn>
