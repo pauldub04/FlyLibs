@@ -1,16 +1,10 @@
 <template>
   <v-container>
     <v-main>
-      <!-- <v-row>
-        <v-col>
-          <h1> {{ user.username }} </h1>
-          <p> {{ user.username }} </p>
-        </v-col>
-      </v-row> -->
 
       <div v-if="error">
         <h1>Такого пользователя не существует</h1>
-        <v-btn to="/" color="success" class="mt-5">
+        <v-btn to="/" color="success" class="my-5">
           На главную
         </v-btn>
       </div>
@@ -66,7 +60,7 @@
         <v-row v-else>
           <v-col cols="6">
             <v-form
-              class="mt-10"
+              class="mb-10"
               ref="form"
               v-model="valid"
             >

@@ -1,7 +1,7 @@
 <template>
   <v-app>
   <v-navigation-drawer app expand-on-hover>
-    <v-list dense rounded class="px-0">
+    <v-list dense rounded class="pl-0 pr-1">
       <v-list-item
         v-for="item in drawer_list"
         :key="item.title"
@@ -20,10 +20,13 @@
   </v-navigation-drawer>
 
   <v-app-bar app flat>
-    <v-app-bar-nav-icon class="ml-5">
-      <v-icon>mdi-book</v-icon>
-    </v-app-bar-nav-icon>
-    <v-toolbar-title>HomeLibrary</v-toolbar-title>
+
+      <v-app-bar-nav-icon disabled class="ml-5">
+        <v-icon>mdi-book</v-icon>
+      </v-app-bar-nav-icon>
+      <v-toolbar-title>
+        HomeLibrary
+      </v-toolbar-title>
 
     <v-spacer/>
     <div v-if="token">
@@ -39,7 +42,13 @@
 
   <v-main>
     <v-container fluid>
-      <router-view></router-view>
+      <v-row justify="center">
+        <v-col cols="10">
+          <v-sheet class="my-10">
+            <router-view></router-view>
+          </v-sheet>
+        </v-col>
+      </v-row>
     </v-container>
   </v-main>
 

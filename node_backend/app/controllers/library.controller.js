@@ -2,10 +2,6 @@ var Library = require("../models/library.model.js");
 
 var User = require("../models/user.model.js");
 
-//image
-
-//----------------------------------------
-
 
 exports.create = (req, res) => {
   if (!req.body) {
@@ -28,8 +24,12 @@ exports.create = (req, res) => {
         id_user: user.id.toString(),
         name: req.body.name.toString(),
         description: req.body.description.toString() || null,
-        image: req.file.path || null,
       });
+
+      if (req.file)
+        library.image = req.file.path
+      else
+        library.image = null
 
       Library.create(library, (err, data) => {
         if (err) {

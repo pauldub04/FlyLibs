@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="pb-10">
     <v-main>
       <h1>HomeLibrary</h1>
       Проект для создания и организации домашней библиотеки с возможностью выдачи книг
