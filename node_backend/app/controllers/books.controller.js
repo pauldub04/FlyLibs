@@ -36,6 +36,11 @@ exports.create = (req, res) => {
         id_library: req.body.id_library.toString(),
         // year_publishing: req.body.year_publishing.toString(),
       });
+
+      if (req.file)
+        book.image = req.file.path
+      else
+        book.image = null
     
       Book.create(book, (err, data) => {
         if (err) {

@@ -6,7 +6,7 @@
   >
     <v-img
       v-if="book.image"
-      :src="book.image"
+      :src="'http://localhost:3000/' + book.image"
       height="200px"
     ></v-img>
     <v-img

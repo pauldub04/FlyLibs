@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-main>
+    <v-main class="pb-10">
 
       <div v-if="addBook">
         <h2>Добавление книги</h2>
@@ -111,6 +111,15 @@
                 :rules="[v => !!v || 'Введите год выпуска']"
                 required
               ></v-text-field> -->
+              <v-file-input
+                class="mt-10 mb-5"
+                chips
+                show-size
+                prepend-icon="mdi-camera"
+                label="Фотография (необязательно)"
+                truncate-length="50"
+                @change="uploadImage"
+              ></v-file-input>
 
               <v-btn
                 :disabled="!valid"
@@ -226,6 +235,8 @@ export default {
     name_toggle: 0,
     newWork: '',
 
+    image: '',
+
     // year: '',
   }),
   mounted() {
@@ -248,6 +259,10 @@ export default {
     this.fetchBooks()
   },
   methods: {
+    uploadImage(e) {
+      this.image = e;
+    },
+
     save() {
       if (this.isPickedBook) {
         let work_ind = this.works.map(value => value.name).indexOf(this.work);
@@ -314,11 +329,12 @@ export default {
       })
     },
     postBook(work) {
-      axios.post('/books/addBook', {
-        id_work: work.id,
-        id_library: this.$route.params.ind,
-        // year_publishing: this.year,
-      }, {
+      let formData = new FormData();
+      formData.append('id_work', work.id);
+      formData.append('id_library', this.$route.params.ind);
+      formData.append('image', this.image);
+
+      axios.post('/books/addBook', formData, {
         headers: {
           'Authorization': `Bearer ${this.$store.getters.getToken}` 
         }
@@ -339,7 +355,7 @@ export default {
       console.log('fetched')
       axios.get(`/books/get_books/lib/${this.$route.params.ind}`)
       .then(response => {
-        // console.log(response.data)
+        console.log(response.data)
         this.books = response.data
       });
     },
