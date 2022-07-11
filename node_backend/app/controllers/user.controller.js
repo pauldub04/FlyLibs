@@ -34,7 +34,7 @@ exports.login = (req, res) => {
 
   sql.query(req_sql, function (err, result_sql, fields) {
     if (err) {
-      console.log("error: ", err);z
+      console.log("error: ", err);
       throw err;
     }
 

@@ -23,7 +23,7 @@ Library.create = (newLib, result) => {
 
 Library.getLibraries = (libId, result) => {
   let req = `
-    SELECT library.id, user.zname as creator, user.id as creator_id, library.name, library.description, library.image
+    SELECT library.id, user.username as creator, user.id as creator_id, library.name, library.description, library.image
     FROM library left join user
     on library.id_user = user.id
   `;

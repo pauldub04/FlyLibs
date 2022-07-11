@@ -53,7 +53,7 @@ Book.addAuthor = (newAuthor, result) => {
 Book.getBooksFromLib = (libId, result) => {
   let req = `
     SELECT book.id, work.name as book_name,
-    book.id_library, genre.name as genre,z
+    book.id_library, genre.name as genre, image,
 
     author.name as author_name, author.surname as author_surname, author.patronymic as author_patronymic,
     CONCAT(author.surname, ' ', author.name, ' ', author.patronymic) as author_fullname,
