@@ -21,11 +21,11 @@
 
   <v-app-bar app flat>
 
-      <v-app-bar-nav-icon disabled class="ml-5">
-        <v-icon>mdi-book</v-icon>
+      <v-app-bar-nav-icon disabled class="ml-5 mb-1">
+        <v-icon x-large>mdi-bird</v-icon>
       </v-app-bar-nav-icon>
       <v-toolbar-title>
-        HomeLibrary
+        FlyLibs
       </v-toolbar-title>
 
     <v-spacer/>
