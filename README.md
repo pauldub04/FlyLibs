@@ -33,19 +33,19 @@
 
 ### Запуск бэкенда:
 ```bash
-    cd node_backend
-    npm install
-    node index.js
+cd node_backend
+npm install
+node index.js
 ```
 или с помощью nodemon для автоматической перезагрузки сервера при внесении изменений
 ```bash
-    nodemon index.js
+nodemon index.js
 ```
 
 ### Запуск фронтенда:
 ```bash
-    cd vue_frontend
-    npm install
-    npm run serve
+cd vue_frontend
+npm install
+npm run serve
 ```
 
