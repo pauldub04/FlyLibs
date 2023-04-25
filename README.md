@@ -5,8 +5,7 @@
 <img src="https://user-images.githubusercontent.com/49102209/178305213-6b9ceaad-3068-4c2b-8071-56ba5887e203.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/49102209/178305227-26fa920b-d00a-4f87-a779-8506d6f005a7.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/49102209/178305233-84034b45-def4-449d-af30-f91b14de2b4b.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/49102209/178305244-eb69f0de-2230-4e14-94ab-24fa6a014cb5.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/49102209/178305254-04d5acdf-610f-45c4-94bd-153a47676aa7.png" width="30%"></img>  
 
 ### Технологический стек:
-- javascript
-- vue.js
+- javascript, npm, vue.js
 - node.js
 
 ### План разработки
